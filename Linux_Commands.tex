@@ -1,0 +1,164 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox}
+\usepackage{titling}
+\pdfpagewidth=8.5in \pdfpageheight=11in
+%\topmargin -.695in \evensidemargin -.5mm \oddsidemargin -.5mm
+%\setlength{\textwidth}{17.05cm} \setlength{\textheight}{23.5cm}
+
+\title{Useful Linux Commands}
+\author{Christopher Malek}
+\date{}
+\setlength{\droptitle}{-13em}	
+
+\newcommand{\bt}{\begin{tcolorbox}}
+\newcommand{\et}{\end{tcolorbox}}
+\begin{document}
+\maketitle
+\section{Watch Real-Time CPU Freq.}
+\bt
+watch -n 0.01 ``cat /proc/cpuinfo | grep -i mhz''
+\et
+
+\section{If kworker is eating CPU:}
+\bt
+grep . -r /sys/firmware/acpi/interrupts/\\
+sudo -s\\
+echo ''disable'' $>$ /sys/firmware/acpi/interrupts/gpe61 (gpe61 example)
+\et
+
+\section{Repeat a Terminal Command:}
+To repeat a terminal command every 'x' amount of seconds:
+\bt
+while true; do (command); sleep (interval); done\\
+\textbf{Example:} while true; do python sumtimes.py; sleep 5; done
+\et
+
+\section{If USB Flash Drive isn't working:}
+\bt
+sudo ntfsfix /dev/sda(whatever)
+\et
+
+\section{rsync commands:}
+Exclude .cache files and show progress:
+\bt
+sudo rsync -a --exclude=.cache --progress /home/chris /media/chris/Storage
+\et
+\noindent To sync only new files:
+\bt
+rsync -avzh --ignore-existing /home/chris/ /media/chris/Storage
+\et
+
+\section{ls -l}
+ \bt
+   ls -l
+ \et
+\noindent Lists 9 columns in stdout:\\
+1)Permissions of the files, r = read, w = write, x = execute\\
+2)Number of links of the files\\
+3)Owner of the files\\
+4)Group that the files are assigned to\\
+5)Size of the file in bytes\\
+6,7,8,9) Modification time, path
+
+\section{Changing File Permissions}
+User obtains permission to execute file:
+  \bt
+   chmod u+x file
+  \et
+Others and the group loose the write permissions to files file1 and file2
+  \bt
+   chmod og-w file1 file2
+  \et
+Everyone obtains read permissions:
+  \bt
+   chmod a + r
+  \et
+Execute this to allow bash scripts to be executed:
+	\bt
+	chmod -x filename
+	\et
+\section{Rename a File}
+To rename file1.f90 to file2.f90
+\bt
+mv file1.f90 file2.f90
+\et
+
+\section{Confirmation to Remove}
+To confirm before deleting all files:
+\bt
+rm -i *
+\et
+
+\section{Filters}
+Display file contents in terminal in a variety of ways:
+   \subsection{cat}
+   Print all the info inside data to the terminal:
+     \bt
+     cat data.txt
+     \et
+
+  \subsection{less}
+  Browse the contents of data.txt:
+  \bt
+  less data.txt
+  \et
+
+  \subsection{head}
+  Print first line of data.txt from the top
+  \bt
+  head -n 1 data.txt
+  \et
+
+  \subsection{tail}
+  Same as head but it starts from the bottom of the file:
+  \bt
+  tail -n 2 data.txt
+  \et
+
+  \subsection{sort}
+  \bt
+  sort data.txt \qquad sort contents alphabetically\\
+  sort -r data.txt \quad reverse sort\\
+  sort -n data.txt \quad sort numerically
+  \et
+  
+   \subsection{grep}
+   Processes a text file line by line searching for a given string of characters.
+   \bt
+   grep kilos data.txt \qquad Print lines containing 'kilos'\\
+   grep -v kilos data.txt \quad Print each line NOT containing the string 'kilos'
+   \et
+  
+\section{scp to Raspberry Pi}
+Copy file from main to Raspberry Pi:
+   \bt
+   scp file.ext pi@192.168.1.12:dir/ \quad The /home/pi/dir must already exist
+   \et
+
+Copy file from Raspberry Pi to main:
+   \bt
+   scp pi@192.168.1.12:file.ext \quad will transfer to current directory
+   \et
+
+\section{Change Swapiness}
+   \bt
+   sudo (editor) /etc/sysct1.conf\\
+   vm.swappiness=(VALUE)
+   \et
+\section{Multiple Copy}
+	\bt
+	echo dir1/ dir2/ dir3/ | xargs -n 1 cp filename
+	\et
+
+\section{Find a File}	
+	\bt
+	find . -name 'filename'
+	\et
+	
+\section{Tar and Untar}
+	\bt 
+	\textbf{Create:  } tar -zcvf name.tar.gz directory-name/ \\
+	\textbf{Extract: } tar -zxvf name.tar.gz
+	\et
+ \end{document}
