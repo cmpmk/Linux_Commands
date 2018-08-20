@@ -17,7 +17,7 @@
 \maketitle
 \section{Watch Real-Time CPU Freq.}
 \bt
-watch -n 0.01 ``cat /proc/cpuinfo | grep -i mhz''
+watch -n 0.01 ``cat /proc/cpuinfo $|$ grep -i mhz''
 \et
 
 \section{If kworker is eating CPU:}
@@ -28,7 +28,7 @@ echo ''disable'' $>$ /sys/firmware/acpi/interrupts/gpe61 (gpe61 example)
 \et
 
 \section{Repeat a Terminal Command:}
-To repeat a terminal command every 'x' amount of seconds:
+Repeat a terminal command every 'x' amount of seconds:
 \bt
 while true; do (command); sleep (interval); done\\
 \textbf{Example:} while true; do python sumtimes.py; sleep 5; done
@@ -36,7 +36,7 @@ while true; do (command); sleep (interval); done\\
 
 \section{If USB Flash Drive isn't working:}
 \bt
-sudo ntfsfix /dev/sda(whatever)
+sudo ntfsfix /dev/sdaXXX
 \et
 
 \section{rsync commands:}
@@ -66,11 +66,11 @@ User obtains permission to execute file:
   \bt
    chmod u+x file
   \et
-Others and the group loose the write permissions to files file1 and file2
+\noindent Others and the group loose the write permissions to files file1 and file2
   \bt
    chmod og-w file1 file2
   \et
-Everyone obtains read permissions:
+\noindent Everyone obtains read permissions:
   \bt
    chmod a + r
   \et
@@ -79,9 +79,9 @@ Execute this to allow bash scripts to be executed:
 	chmod -x filename
 	\et
 \section{Rename a File}
-To rename file1.f90 to file2.f90
+
 \bt
-mv file1.f90 file2.f90
+mv file1 file2
 \et
 
 \section{Confirmation to Remove}
